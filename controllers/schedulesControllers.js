@@ -1,3 +1,6 @@
+const Schedule = require('../models/schedulesModel');
+
+
 const getAllSchedules = (req, res) => {
     //logic to return a user's all schedules by a specific vacation and a specific day
 }

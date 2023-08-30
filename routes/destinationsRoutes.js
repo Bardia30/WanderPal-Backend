@@ -6,15 +6,15 @@ const destinationControllers = require('../controllers/destinationControllers');
 
 
 //get all user's destinations
-router.get('/', destinationControllers.getUserDestinations);
+router.get('/:uid', destinationControllers.getUserDestinations);
 //post a new vacation destination for a user
-router.post('/', destinationControllers.addUserDestination);
+router.post('/:uid', destinationControllers.addUserDestination);
 //get a user's specific destination
-router.get('/:destinationId', destinationControllers.getUserDestinationById);
+router.get('/:uid/:destinationId', destinationControllers.getUserDestinationById);
 //Update a user's destination 
-router.put('/:destinationId', destinationControllers.updateUserDestinationById);
+router.put('/:uid/:destinationId', destinationControllers.updateUserDestinationById);
 //Delete a user's destination
-router.delete('/:destinationId', destinationControllers.deleteUserDestinationById);
+router.delete('/:uid/:destinationId', destinationControllers.deleteUserDestinationById);
 
 
 

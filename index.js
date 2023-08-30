@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const cors = require('cors');
+const mongoose = require('mongoose');
+
+
 const destinationsRoutes = require('./routes/destinationsRoutes');
 const schedulesRoutes = require('./routes/schedulesRoutes');
 const usersRoutes = require('./routes/usersRoutes');
@@ -20,17 +23,20 @@ app.use(express.static('public'));
 
 
 
-app.use('/:uid/destinations', destinationsRoutes);
-app.use('/:uid/schedules', schedulesRoutes);
+app.use('/destinations', destinationsRoutes);
+app.use('/schedules', schedulesRoutes);
 
 
 
 
 
-
+mongoose.connect("mongodb+srv://bardia30:19982007@wanderpal.2kklzap.mongodb.net/?retryWrites=true&w=majority")
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`WanderPal server started on port ${PORT}`)
+        });
+    })
+    .catch((err) => console.log(err));
 
 
 //port setting
-app.listen(PORT, ()=> {
-    console.log(`WanderPal server started on port ${PORT}`)
-});
