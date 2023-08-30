@@ -10,7 +10,7 @@ const destinationSchema = new Schema({
     destination: {type: String, required: true},
     arrival_date: {type: Date, required: true},
     departure_date: {type: Date, required: true},
-    creatorId: {type: String, required: true},
+    creatorId: {type: mongoose.Types.ObjectId, required: true, ref: 'User'},
     hotel: {
         name: {type: String, required: true},
         location: {
@@ -18,7 +18,7 @@ const destinationSchema = new Schema({
             lng: {type: Number, required: true}
         }
     },
-    image: {type: String, required: true}
+    image: {type: String, required: true},
 })
 
 //collection name: places
