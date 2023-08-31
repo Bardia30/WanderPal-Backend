@@ -10,7 +10,7 @@ const usersControllers = require('../controllers/usersControllers');
 router.post('/signup', usersControllers.signup)
 
 //login logic
-router.post('/login/', usersControllers.login);
+router.post('/login', usersControllers.login);
 
 
 
