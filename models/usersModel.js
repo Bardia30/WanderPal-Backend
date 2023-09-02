@@ -6,11 +6,8 @@ const uniqueValidator = require('mongoose-unique-validator');
 //figure out a way to make the password more secure. hashing it. 
 const userSchema = new Schema({
     email: {type: String, required: true, unique: true},
-    name: {
-        first: {type: String, required: true},
-        last: {type: String, required: true}
-    },
-    password: {type: String, required: true, minlength: 8},
+    name: {type: String, required: true},
+    password: {type: String, required: true},
     image: {type: String, required: true},
 })
 

@@ -1,22 +1,29 @@
 const User = require('../models/usersModel');
+const fileUpload = require('../middleware/file-upload');
+
+const getUsers = (req, res) => {
+    User.find()
+        .then(users => {
+            res.status(200).json({ users: users })
+        })
+}
 
 
 // User signup function
 const signup = (req, res) => {
-    const { email, password, name, image } = req.body;
-
+    
     // Check if the email already exists
-    User.findOne({ email })
+    User.findOne({ email: req.body.email })
         .then(user => {
             if (user) {
                 return res.status(400).json({ message: 'Email already exists!' });
             }
 
             const newUser = new User({
-                email,
-                name,
-                password,
-                image
+                email: req.body.email,
+    name: req.body.name,
+    password: req.body.password,
+    image: req.file.path
             });
 
             // Save the new user to the database
@@ -26,6 +33,7 @@ const signup = (req, res) => {
             res.status(201).json({ message: 'User registered successfully!', userId: result._id });
         })
         .catch(err => {
+            console.log(err)
             res.status(500).send(`Error occurred: ${err.message}`);
         });
 }
@@ -54,3 +62,4 @@ const login = (req, res) => {
 
 exports.login = login;
 exports.signup = signup;
+exports.getUsers = getUsers;

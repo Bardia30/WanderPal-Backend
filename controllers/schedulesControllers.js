@@ -1,5 +1,5 @@
 const Schedule = require('../models/schedulesModel');
-
+const fileUpload = require('../middleware/file-upload');
 
 const getAllSchedules = (req, res) => {
     //logic to return a user's all schedules by a specific vacation and a specific day
