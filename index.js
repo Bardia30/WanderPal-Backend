@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path');
 const app = express();
 require("dotenv").config();
 const cors = require('cors');
@@ -19,7 +20,7 @@ const PORT = process.env.PORT || 8081;
 app.use(express.json());
 
 
-app.use(express.static('public'));
+app.use('/uploads/images', express.static(path.join(__dirname, 'uploads', 'images')));
 
 
 

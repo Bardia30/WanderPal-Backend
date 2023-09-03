@@ -30,8 +30,8 @@ const addUserDestination = (req, res) => {
         .then(coordinates => {
             createdDestination = new Destination({
                 destination: req.body.destination, 
-                arrival_date: new Date(req.body.arrival), //figure these out, from "yyyy-mm-dd" format to timestamp format
-                departure_date: new Date(req.body.departure), 
+                arrival_date: req.body.arrival_date, //figure these out, from "yyyy-mm-dd" format to timestamp format
+                departure_date: req.body.departure_date, 
                 creatorId: req.params.uid, 
                 hotel: {
                     name: userHotel, 

@@ -9,6 +9,18 @@ const getUsers = (req, res) => {
 }
 
 
+const getUserById = (req, res) => {
+    const userId = req.params.uid;
+    User.findOne({_id: userId})
+        .then(user => {
+            if (!user) {
+                return res.status(404).send(`user with id: ${userId} was not found`);
+            }
+            res.status(200).json(user);
+        })
+}
+
+
 // User signup function
 const signup = (req, res) => {
     
@@ -63,3 +75,4 @@ const login = (req, res) => {
 exports.login = login;
 exports.signup = signup;
 exports.getUsers = getUsers;
+exports.getUserById = getUserById;

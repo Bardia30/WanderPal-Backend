@@ -6,6 +6,9 @@ const fileUpload = require('../middleware/file-upload');
 //get all users.
 router.get('/getUsers', usersControllers.getUsers);
 
+//get a user by Id
+router.get('/:uid', usersControllers.getUserById);
+
 //signup logic
 router.post('/signup', fileUpload.single('image'), usersControllers.signup)
 
