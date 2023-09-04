@@ -2,6 +2,7 @@ const Destination = require('../models/destinationsModel');
 const Schedule = require('../models/schedulesModel');
 const getHotelLocation = require('../util/getHotelLocation');
 const getDestinationImage = require('../util/getDestinationImage');
+const mongoose = require('mongoose');
 
 const getUserDestinations = (req, res) => {
     const userId = req.params.uid;
