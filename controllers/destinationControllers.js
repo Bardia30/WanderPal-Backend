@@ -145,18 +145,18 @@ const updateUserDestinationById = (req, res) => {
 const deleteUserDestinationById = (req, res) => {
     //logic to retrieve the selected specific detination, using dynamic url
     //then delete the travel with all its schedules
-    const { destinationId, userId } = req.params;
+    const { uid, destinationId } = req.params;
 
     // Check for valid ObjectIds
-    if (!mongoose.Types.ObjectId.isValid(destinationId) || !mongoose.Types.ObjectId.isValid(userId)) {
+    if (!mongoose.Types.ObjectId.isValid(destinationId) || !mongoose.Types.ObjectId.isValid(uid)) {
         return res.status(400).send('Invalid IDs');
     }
 
     // Begin by deleting the destination
-    Destination.findOneAndDelete({ _id: destinationId, creatorId: userId })
+    Destination.findOneAndDelete({ _id: destinationId, creatorId: uid })
     .then(result => {
         if (!result) {
-            return res.status(404).send(`Could not find destination with id: ${destinationId} for user with id: ${userId}`);
+            return res.status(404).send(`Could not find destination with id: ${destinationId} for user with id: ${uid}`);
         }
 
         // If destination is deleted successfully, proceed to delete related schedules
