@@ -1,19 +1,20 @@
+const mongoose = require('mongoose');
 const Schedule = require('../models/schedulesModel');
 const fileUpload = require('../middleware/file-upload');
 
 const getAllSchedules = (req, res) => {
     //logic to return a user's all schedules by a specific vacation and a specific day
-    const { userId, destinationId, day } = req.params;
+    const { uid, destinationId} = req.params;
 
     // Check for valid ObjectIds and valid day
-    if (!mongoose.Types.ObjectId.isValid(destinationId) || !mongoose.Types.ObjectId.isValid(userId) || isNaN(day)) {
+    if (!mongoose.Types.ObjectId.isValid(destinationId) || !mongoose.Types.ObjectId.isValid(uid)) {
         return res.status(400).send('Invalid IDs or day');
     }
 
-    Schedule.find({ creatorId: userId, destinationId: destinationId, day: day })
+    Schedule.find({ creatorId: uid, destinationId: destinationId })
     .then(schedules => {
         if (schedules.length === 0) {
-            return res.status(404).send(`No schedules found for user with id: ${userId}, destinationId: ${destinationId} and day: ${day}`);
+            return res.status(404).send(`No schedules found for user with id: ${uid}, destinationId: ${destinationId}`);
         }
         return res.status(200).json(schedules);
     })
@@ -25,32 +26,31 @@ const getAllSchedules = (req, res) => {
 
 const addNewSchedule = (req, res) => {
     //logic to add a new sched for a vacation and a day
-    const { userId, destinationId, day } = req.params;
+    const { uid, destinationId, day } = req.params;
 
     // Check for valid ObjectIds and valid day
-    if (!mongoose.Types.ObjectId.isValid(destinationId) || !mongoose.Types.ObjectId.isValid(userId) || isNaN(day)) {
+    if (!mongoose.Types.ObjectId.isValid(destinationId) || !mongoose.Types.ObjectId.isValid(uid) || isNaN(day)) {
         return res.status(400).send('Invalid IDs or day');
     }
 
     // Extract other schedule details from the request body
-    const { name, activity_type, time, duration, website, location } = req.body;
+    const { name, activity_type, time, duration, website } = req.body;
 
     // Validate extracted details (You can expand upon this, this is a basic check)
-    if (!name || !activity_type || !time || !duration || !website || !location || !location.lat || !location.lng) {
+    if (!name || !activity_type || !time || !duration || !website ) {
         return res.status(400).send('Incomplete schedule details');
     }
 
     // Create a new Schedule document
     const newSchedule = new Schedule({
-        creatorId: userId,
+        creatorId: uid,
         destinationId: destinationId,
         day: day,
         name: name,
         activity_type: activity_type,
-        time: new Date(time), // assuming time is passed as a string in a format that can be converted to a Date object
+        time: time, 
         duration: duration,
-        website: website,
-        location: location
+        website: website
     });
 
     // Save the new Schedule document to the database
@@ -100,7 +100,7 @@ const updateScheduleById = (req, res) => {
     const { userId, destinationId, day, name, activity_type, time, duration, website, location } = req.body;
 
     // Validate extracted details (You can expand upon this, this is a basic check)
-    if (!userId || !destinationId || !day || !name || !activity_type || !time || !duration || !website || !location || !location.lat || !location.lng) {
+    if (!userId || !destinationId || !day || !name || !activity_type || !time || !duration || !website) {
         return res.status(400).send('Incomplete schedule details');
     }
 
@@ -118,8 +118,8 @@ const updateScheduleById = (req, res) => {
         activity_type: activity_type,
         time: new Date(time),
         duration: duration,
-        website: website,
-        location: location
+        website: website
+        
     };
 
     // Update the schedule in the database using findByIdAndUpdate

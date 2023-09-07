@@ -9,14 +9,9 @@ const scheduleSchema = new Schema({
     day: {type: Number, required: true},
     name: {type: String, required: true},
     activity_type: {type: String, required: true},
-    time: {type: Date, required: true},
+    time: {type: Number, required: true},
     duration: {type: Number, required: true},
-    website: {type: String, required: true},
-    location: {
-        lat: {type: Number, required: true},
-        lng: {type: Number, required: true}
-    }
-
+    website: {type: String, required: true}
 })
 
 
