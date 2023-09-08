@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const checkAuth =require('../middleware/check-auth');
 
 const schedulesControllers = require('../controllers/schedulesControllers');
 
+router.use(checkAuth);
 
 //get all the schedules for a vacation, on a specific day
 router.get('/:uid/:destinationId/', schedulesControllers.getAllSchedules);

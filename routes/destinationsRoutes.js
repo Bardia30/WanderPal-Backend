@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-
+const checkAuth =require('../middleware/check-auth');
 
 const destinationControllers = require('../controllers/destinationControllers');
 
+//middleware to check if token is generated or not
+router.use(checkAuth);
 
 //get all user's destinations
 router.get('/:uid', destinationControllers.getUserDestinations);
