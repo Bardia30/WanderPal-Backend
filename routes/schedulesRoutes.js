@@ -19,7 +19,7 @@ router.put('/:uid/:destinationId/:day/:scheduleId', schedulesControllers.updateS
 
 
 //delete a specific schedule
-router.delete('/:uid/:destinationId/:day/:scheduleId', schedulesControllers.deleteScheduleById);
+router.delete('/:uid/:destinationId/:scheduleId', schedulesControllers.deleteScheduleById);
 
 
 

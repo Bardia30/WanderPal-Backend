@@ -97,21 +97,21 @@ const updateScheduleById = (req, res) => {
     }
 
     // Extract other schedule details from the request body
-    const { userId, destinationId, day, name, activity_type, time, duration, website, location } = req.body;
+    const { creatorId, destinationId, day, name, activity_type, time, duration, website } = req.body;
 
     // Validate extracted details (You can expand upon this, this is a basic check)
-    if (!userId || !destinationId || !day || !name || !activity_type || !time || !duration || !website) {
+    if (!creatorId || !destinationId || !day || !name || !activity_type || !time || !duration || !website) {
         return res.status(400).send('Incomplete schedule details');
     }
 
     // Check for valid ObjectIds and valid day
-    if (!mongoose.Types.ObjectId.isValid(destinationId) || !mongoose.Types.ObjectId.isValid(userId) || isNaN(day)) {
+    if (!mongoose.Types.ObjectId.isValid(destinationId) || !mongoose.Types.ObjectId.isValid(creatorId) || isNaN(day)) {
         return res.status(400).send('Invalid IDs or day');
     }
 
     // Data to update
     const updatedData = {
-        creatorId: userId,
+        creatorId: creatorId,
         destinationId: destinationId,
         day: day,
         name: name,
